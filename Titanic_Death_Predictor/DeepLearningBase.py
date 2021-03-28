@@ -1,5 +1,4 @@
 import numpy as np
-from matplotlib import pyplot as plt
 
 
 def initialise_parameters(layer_dims):
@@ -239,8 +238,9 @@ def predict(X, y, parameters):
     return np.sum((p == y) / m) * 100
 
 
-def L_layer_model(X, Y, layers_dims, learning_rate=0.0075, num_iterations=30000, print_cost=False):
+def L_layer_model(X, Y, X_test, Y_test, layers_dims, learning_rate=0.0075, num_iterations=30000, print_cost=False):
     np.random.seed(1)
+    best, best_iteration = 0, 0
     costs = []
     parameters = initialise_parameters(layers_dims)
     for i in range(0, num_iterations):
@@ -249,17 +249,18 @@ def L_layer_model(X, Y, layers_dims, learning_rate=0.0075, num_iterations=30000,
         grads = L_model_backward(AL, Y, caches)
 
         parameters = update_parameters(parameters, grads, learning_rate)
-
+        if best < predict(X_test, Y_test, parameters):
+            best = predict(X_test, Y_test, parameters)
+            best_iteration = i
         # Print the cost every 100 training example
         if print_cost and i % 100 == 0:
             print("Cost after iteration %i: %f" % (i, cost))
         if print_cost and i % 100 == 0:
             costs.append(cost)
-
     # plt.plot(np.squeeze(costs))
     # plt.ylabel('cost')
     # plt.xlabel('iterations (per hundreds)')
     # plt.title("Learning rate =" + str(learning_rate))
     # plt.show()
-
+    print('Best: ' + str(best) + "  " + str(best_iteration))
     return parameters
