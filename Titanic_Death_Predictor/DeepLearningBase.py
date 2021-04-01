@@ -251,10 +251,10 @@ def L_layer_model(X, Y, X_test, Y_test, layers_dims, learning_rate=0.0075, num_i
             best = predict(X_test, Y_test, parameters)
             best_iteration = i
         # Print the cost every 100 training example
-        if print_cost and i % 100 == 0:
-            print("Cost after iteration %i: %f" % (i, cost))
-        if print_cost and i % 100 == 0:
-            costs.append(cost)
+        # if print_cost and i % 100 == 0:
+        #     print("Cost after iteration %i: %f" % (i, cost))
+        # if print_cost and i % 100 == 0:
+        #     costs.append(cost)
     # plt.plot(np.squeeze(costs))
     # plt.ylabel('cost')
     # plt.xlabel('iterations (per hundreds)')
